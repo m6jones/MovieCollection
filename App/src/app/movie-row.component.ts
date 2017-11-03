@@ -1,5 +1,5 @@
 // Keep the Input import for now, you'll remove it later:
-import { Component, Input, OnInit, DoCheck, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, DoCheck, ViewChild, ElementRef } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 import { MovieTableComponent } from './movie-table.component';

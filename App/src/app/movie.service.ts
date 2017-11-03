@@ -34,11 +34,12 @@ export class MovieService {
       .catch(this.handleError);
   }
   
-  search(term: Movie): Observable<Movie[]> {
+  search(term: Movie[]): Observable<Movie[]> {
     let searchTerms: string[] = new Array(0);
-    if(term.title) searchTerms.push('title='+term.title);
-    if(term.genre) searchTerms.push('genre='+term.genre);
-    if(term.actor) searchTerms.push('actor='+term.actor);
+    
+    if(term[0].title) searchTerms.push('title='+term[0].title);
+    if(term[0].genre) searchTerms.push('genre='+term[0].genre);
+    if(term[0].actor) searchTerms.push('actor='+term[0].actor);
     let terms : string = searchTerms.join('&');
     return this.http
                .get(`api/movies/?${terms}`)

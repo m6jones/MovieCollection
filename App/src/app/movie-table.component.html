@@ -1,5 +1,9 @@
 <div>
   <table class="table table-striped table-hover table-condensed">
+    <!-- Header of the table with the ability to search the different fields -->
+    <!-- Each header cell gives the option to press a search botton to give access to a text field. 
+         That will filter the movies 
+    -->
     <thead>
       <tr>
         <th>
@@ -20,8 +24,8 @@
                 type="button" 
                 class="btn btn-default btn-sm pull-right"
                 [disabled]="movieEdit !== null"                
-                (click)="titleSearch=!titleSearch; searchTitle=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
-                (keyup.enter)="titleSearch=!titleSearch; searchTitle=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})">
+                (click)="titleSearch=!titleSearch; searchTitle=''; search({id:0, title:searchTitle, genre:searchGenre, actor:searchActor})" 
+                (keyup.enter)="titleSearch=!titleSearch; searchTitle=''; search({id:0,title:searchTitle, genre:searchGenre, actor:searchActor})">
                 <span class="glyphicon glyphicon-search"></span>
               </button>
             </div>
@@ -46,8 +50,8 @@
             [disabled]="movieEdit !== null" 
             type="button" 
             class="btn btn-default btn-sm pull-right" 
-            (click)="genreSearch=!genreSearch; searchGenre=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
-            (keyup.enter)="genreSearch=!genreSearch; searchGenre=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})">
+            (click)="genreSearch=!genreSearch; searchGenre=''; search({id:0,title:searchTitle, genre:searchGenre, actor:searchActor})" 
+            (keyup.enter)="genreSearch=!genreSearch; searchGenre=''; search({id:0,title:searchTitle, genre:searchGenre, actor:searchActor})">
             <span class="glyphicon glyphicon-search"></span>
           </button>
           </div>
@@ -72,8 +76,8 @@
             [disabled]="movieEdit !== null" 
             type="button" 
             class="btn btn-default btn-sm pull-right" 
-            (click)="actorSearch=!actorSearch; searchActor=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
-            (keyup.enter)="actorSearch=!actorSearch; searchActor=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})">
+            (click)="actorSearch=!actorSearch; searchActor=''; search({id:0,title:searchTitle, genre:searchGenre, actor:searchActor})" 
+            (keyup.enter)="actorSearch=!actorSearch; searchActor=''; search({id:0,title:searchTitle, genre:searchGenre, actor:searchActor})">
             <span class="glyphicon glyphicon-search"></span>
           </button>
           </div>
@@ -82,12 +86,14 @@
         <th></th>
       </tr>
     </thead>
+    <!-- List out all the movies -->
     <tbody class="" >
       <ng-container *ngFor="let movie of movies | async" [ngSwitch]="movie">
         <tr movie-row-edit [movie]="movie" [table]="this" *ngSwitchCase='movieEdit'  (click)="onSelect(movie);" [class.active]="movie === selectedMovie"></tr>
         <tr movie-row [movie]="movie" [table]="this" *ngSwitchDefault  (click)="onSelect(movie)" [class.active]="movie === selectedMovie"></tr>
       </ng-container>
     </tbody>
+    <!-- The ability to add new movies -->
     <tfoot>
       <tr movie-row-edit [add]="true" [table]="this" (click)="onSelect(null);"></tr>
     </tfoot>

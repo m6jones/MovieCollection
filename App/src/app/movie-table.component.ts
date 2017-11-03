@@ -24,7 +24,7 @@ export class MovieTableComponent implements OnInit {
   public selectedMovie: Movie;
   public movieEdit : Movie = null;
   private searchTerms = new Subject<Movie[]>();
-  private lastSearchTerm : Movie = {title:"",genre:"",actor:""};
+  private lastSearchTerm : Movie = {id:0,title:"",genre:"",actor:""};
   
   constructor(private movieService: MovieService) { }
   
@@ -37,20 +37,20 @@ export class MovieTableComponent implements OnInit {
   
   // Search for a movie
   search(term: Movie): void {
-    this.searchTerms.next(term);
+    this.searchTerms.next([term]);
     this.lastSearchTerm = term;
   }
   
   // Reload the movie list.
   reload(): void {
-    this.searchTerms.next(this.lastSearchTerm);
+    this.searchTerms.next([this.lastSearchTerm]);
   }
   
   // Set up the observable movie list that can be searched.
   ngOnInit(): void {
     this.movies = this.searchTerms
-        .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-        .switchMap(term => term && (term.title || term.genre || term.actor)  
+        .debounceTime(300) // wait 300ms after each keystroke before considering the term
+        .switchMap(term => term
           ? this.movieService.search(term)
           : Observable.fromPromise(this.getMovies()))
         .catch(error => {

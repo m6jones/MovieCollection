@@ -23,7 +23,7 @@ var MovieTableComponent = (function () {
         this.movieService = movieService;
         this.movieEdit = null;
         this.searchTerms = new Subject_1.Subject();
-        this.lastSearchTerm = { title: "", genre: "", actor: "" };
+        this.lastSearchTerm = { id: 0, title: "", genre: "", actor: "" };
     }
     // Manage which movie has been selected on the screen.
     MovieTableComponent.prototype.onSelect = function (movie) {
@@ -33,19 +33,19 @@ var MovieTableComponent = (function () {
     };
     // Search for a movie
     MovieTableComponent.prototype.search = function (term) {
-        this.searchTerms.next(term);
+        this.searchTerms.next([term]);
         this.lastSearchTerm = term;
     };
     // Reload the movie list.
     MovieTableComponent.prototype.reload = function () {
-        this.searchTerms.next(this.lastSearchTerm);
+        this.searchTerms.next([this.lastSearchTerm]);
     };
     // Set up the observable movie list that can be searched.
     MovieTableComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.movies = this.searchTerms
             .debounceTime(300) // wait 300ms after each keystroke before considering the term
-            .switchMap(function (term) { return term && (term.title || term.genre || term.actor)
+            .switchMap(function (term) { return term
             ? _this.movieService.search(term)
             : Observable_1.Observable.fromPromise(_this.getMovies()); })
             .catch(function (error) {

@@ -41,7 +41,7 @@ __decorate([
 ], MovieRowComponent.prototype, "table", void 0);
 __decorate([
     core_1.ViewChild('defaultFocus'),
-    __metadata("design:type", Object)
+    __metadata("design:type", core_1.ElementRef)
 ], MovieRowComponent.prototype, "defaultFocus", void 0);
 MovieRowComponent = __decorate([
     core_1.Component({

@@ -37,12 +37,12 @@ var MovieService = (function () {
     };
     MovieService.prototype.search = function (term) {
         var searchTerms = new Array(0);
-        if (term.title)
-            searchTerms.push('title=' + term.title);
-        if (term.genre)
-            searchTerms.push('genre=' + term.genre);
-        if (term.actor)
-            searchTerms.push('actor=' + term.actor);
+        if (term[0].title)
+            searchTerms.push('title=' + term[0].title);
+        if (term[0].genre)
+            searchTerms.push('genre=' + term[0].genre);
+        if (term[0].actor)
+            searchTerms.push('actor=' + term[0].actor);
         var terms = searchTerms.join('&');
         return this.http
             .get("api/movies/?" + terms)

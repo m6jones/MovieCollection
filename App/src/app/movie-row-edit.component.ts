@@ -1,5 +1,5 @@
 // Keep the Input import for now, you'll remove it later:
-import { Component, Input, OnInit, DoCheck, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, DoCheck, ViewChild, ElementRef } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 import { MovieTableComponent } from './movie-table.component';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/switchMap';
   //styleUrls: [ './movie-row-edit.component.css' ]
 })
 export class MovieRowEditComponent implements OnInit {
-  @Input() movie: Movie = {id: 0, title:"",genre:"",actor:""};
+  @Input() movie: Movie = {id:0, title:"",genre:"",actor:""};
   @Input() add: boolean = false;
   @Input() table: MovieTableComponent;
   @ViewChild('defaultFocus') defaultFocus:ElementRef;
