@@ -13,7 +13,8 @@ export class MovieService {
   private headers = new Headers({'Content-Type': 'application/json'});
   
   constructor(private http: Http) { }
-   
+  
+  // Gets all movies once.
   getMovies(): Promise<Movie[]> {
     return this.http.get(this.moviesUrl)
                .toPromise()
@@ -25,6 +26,7 @@ export class MovieService {
     return Promise.reject(error.message || error);
   }
   
+  // Gets a single movie once.
   getMovie(id: number): Promise<Movie> {
     const url = `${this.moviesUrl}/${id}`;
     return this.http.get(url)
@@ -33,6 +35,7 @@ export class MovieService {
       .catch(this.handleError);
   }
   
+  // Get the data from the server using a filter.
   search(term: Movie[]): Observable<Movie[]> {
     let searchTerms: string[] = new Array(0);
     

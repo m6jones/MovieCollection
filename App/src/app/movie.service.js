@@ -18,6 +18,7 @@ var MovieService = (function () {
         this.moviesUrl = 'api/movies'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
+    // Gets all movies once.
     MovieService.prototype.getMovies = function () {
         return this.http.get(this.moviesUrl)
             .toPromise()
@@ -27,6 +28,7 @@ var MovieService = (function () {
     MovieService.prototype.handleError = function (error) {
         return Promise.reject(error.message || error);
     };
+    // Gets a single movie once.
     MovieService.prototype.getMovie = function (id) {
         var url = this.moviesUrl + "/" + id;
         return this.http.get(url)
@@ -34,6 +36,7 @@ var MovieService = (function () {
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
+    // Get the data from the server using a filter.
     MovieService.prototype.search = function (term) {
         var searchTerms = new Array(0);
         if (term[0].title)

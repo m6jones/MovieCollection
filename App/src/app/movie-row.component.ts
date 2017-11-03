@@ -3,7 +3,7 @@
  */
 
 // Keep the Input import for now, you'll remove it later:
-import { Component, Input, DoCheck, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, DoCheck, ViewChild, ElementRef } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 import { MovieTableComponent } from './movie-table.component';
@@ -22,6 +22,8 @@ export class MovieRowComponent implements OnInit {
       this.defaultFocus.nativeElement.focus();
       this.fromFocus = false;
     }
+  }
+  ngOnInit(): void {
   }
   constructor(
     private movieService: MovieService,

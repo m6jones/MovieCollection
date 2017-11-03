@@ -27,6 +27,8 @@ var MovieRowComponent = (function () {
             this.fromFocus = false;
         }
     };
+    MovieRowComponent.prototype.ngOnInit = function () {
+    };
     return MovieRowComponent;
 }()); //# sourceMappingURL=movie-row.component.js.map
 __decorate([
