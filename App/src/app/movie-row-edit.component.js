@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/**
+ *  This component allows one to create a row in a table that allows you to edit or add a movie.
+ */
 // Keep the Input import for now, you'll remove it later:
 var core_1 = require("@angular/core");
 var movie_1 = require("./movie");
@@ -24,19 +27,24 @@ var MovieRowEditComponent = (function () {
         this.defaultFocus.nativeElement.focus();
         this.oldMovie = JSON.parse(JSON.stringify(this.movie));
     };
+    // Resets values back to orginal.
     MovieRowEditComponent.prototype.reset = function () {
+        // required to set the values in the list back
         this.movie.title = this.oldMovie.title;
         this.movie.genre = this.oldMovie.genre;
         this.movie.actor = this.oldMovie.actor;
+        // required for the actual change.
         this.movie = JSON.parse(JSON.stringify(this.oldMovie));
     };
+    // Go back to the state where this row is not editing.
     MovieRowEditComponent.prototype.goBack = function () {
-        // Reset to old values.
         this.defaultFocus.nativeElement.focus();
         this.table.movieEdit = null;
     };
+    // Save the changes made while using this form.
     MovieRowEditComponent.prototype.save = function (movie) {
         var _this = this;
+        // If we are adding new entires process is slightly different.
         if (this.add) {
             this.table.add(this.movie.title, this.movie.genre, this.movie.actor);
             this.goBack();

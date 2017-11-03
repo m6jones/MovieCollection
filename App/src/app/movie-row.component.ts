@@ -1,5 +1,9 @@
+/**
+ *  Builds a table row for a movie.
+ */
+
 // Keep the Input import for now, you'll remove it later:
-import { Component, Input, OnInit, DoCheck, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, DoCheck, ViewChild, ElementRef } from '@angular/core';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 import { MovieTableComponent } from './movie-table.component';
@@ -7,7 +11,6 @@ import { MovieTableComponent } from './movie-table.component';
 @Component({
   selector: '[movie-row]',
   templateUrl: './movie-row.component.html',
-  //styleUrls: [ './movie-row.component.css' ]
 })
 export class MovieRowComponent implements OnInit {
   @Input() movie: Movie;
@@ -19,11 +22,6 @@ export class MovieRowComponent implements OnInit {
       this.defaultFocus.nativeElement.focus();
       this.fromFocus = false;
     }
-  }
-  ngOnInit(): void {
-    //this.route.paramMap
-      //.switchMap((params: ParamMap) => this.heroService.getHero(+params.get('id')))
-      //.subscribe(hero => this.hero = hero);
   }
   constructor(
     private movieService: MovieService,
