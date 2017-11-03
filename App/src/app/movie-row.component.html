@@ -1,0 +1,23 @@
+<td>{{movie.title}}</td>
+<td>{{movie.genre}}</td>
+<td>{{movie.actor}}</td>
+<td>
+  <button (focus)="table.onSelect(movie); fromFocus = true"
+          (blur)="table.onSelect(null)"
+          #defaultFocus class="btn btn-default btn-sm" 
+          (click)="table.movieEdit=movie" 
+          [disabled]="table.movieEdit !== null"
+          (keyup.enter)="table.movieEdit = table.selectedMovie; console.log('h')"
+          (keyup.delete)="table.delete(table.selectedMovie);"
+  >
+      <span class="glyphicon glyphicon-edit"></span>
+  </button>
+  <button (focus)="table.onSelect(movie); fromFocus = true" 
+          (blur)="table.onSelect(null)"
+          class="btn btn-default btn-sm" 
+          (click)="table.delete(movie); $event.stopPropagation()" 
+          [disabled]="table.movieEdit !== null"
+  >
+      <span class="glyphicon glyphicon-trash"></span>
+  </button>
+</td>

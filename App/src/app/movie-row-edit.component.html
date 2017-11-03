@@ -1,0 +1,84 @@
+<td>
+  <div 
+    class="form-group has-feedback" 
+    [class.has-error]="title.invalid && (title.dirty || title.touched)"
+    [class.has-success]="title.valid">
+      <input
+        type="text"
+        class="form-control input-sm" 
+        id='title' 
+        name='title' 
+        #title="ngModel" 
+        #defaultFocus 
+        required 
+        pattern="^[A-Za-z0-9\s\-_,\.;:()]+$" 
+        [(ngModel)]="movie.title" 
+        placeholder="Title" 
+        (keydown.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
+        (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset()"
+      />
+      <span 
+        class="glyphicon form-control-feedback" 
+        [class.glyphicon-remove]="title.invalid && (title.dirty || title.touched)"
+        [class.glyphicon-ok]="title.valid"></span>
+  </div>
+</td>
+<td>
+    <div 
+      class="form-group has-feedback" 
+      [class.has-error]="genre.invalid && (genre.dirty || genre.touched)"
+      [class.has-success]="genre.valid">
+      <input 
+        class="form-control input-sm"  
+        required
+        #genre="ngModel" 
+        [(ngModel)]="movie.genre" 
+        placeholder="Genre"
+        pattern="^[A-Za-z0-9\s\-_,\.;:()]+$" 
+        (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
+        (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset()"/>
+      <span 
+        class="glyphicon form-control-feedback" 
+        [class.glyphicon-remove]="genre.invalid && (genre.dirty || genre.touched)"
+        [class.glyphicon-ok]="genre.valid"></span>
+  </div>
+</td>
+<td>
+  <div 
+      class="form-group has-feedback" 
+      [class.has-error]="actor.invalid && (actor.dirty || actor.touched)"
+      [class.has-success]="actor.valid">
+      <input 
+    class="form-control input-sm" 
+    required
+    #actor="ngModel"
+    [(ngModel)]="movie.actor" 
+    placeholder="Actor" 
+    (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
+    (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset(); "/>
+      <span 
+        class="glyphicon form-control-feedback" 
+        [class.glyphicon-remove]="actor.invalid && (actor.dirty || actor.touched)"
+        [class.glyphicon-ok]="actor.valid"></span>
+  </div>
+</td>
+<td>
+  <button 
+    type="button" 
+    class="btn btn-default btn-sm" 
+    [disabled]="title.invalid  || genre.invalid || actor.invalid"
+    (click)="save(movie); title.reset(); genre.reset(); actor.reset()" 
+    (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
+    (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset();">
+    <span class="glyphicon glyphicon-ok"></span>
+  </button>
+  <button 
+    type="button" 
+    class="btn btn-default btn-sm" 
+    (click)="reset(); goBack(); title.reset(); genre.reset(); actor.reset();" 
+    (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset();" 
+    (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset();"
+  >
+    <span class="glyphicon glyphicon-remove"></span>
+  </button>
+</td>
