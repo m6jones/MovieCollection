@@ -8,16 +8,18 @@
             <ng-container *ngIf="titleSearch" >
               <input 
                 class="form-control input-sm"
-               [(ngModel)]="searchTitle" 
-               placeholder="Search by Title" 
-               (keyup.delete)="titleSearch=false" 
-               (keyup)="search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
+                [disabled]="movieEdit !== null" 
+                [(ngModel)]="searchTitle" 
+                placeholder="Search by Title" 
+                (keyup.delete)="titleSearch=false" 
+                (keyup)="search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
               /> 
             </ng-container>
             <div class="input-group-btn">
               <button 
                 type="button" 
-                class="btn btn-default btn-sm pull-right" 
+                class="btn btn-default btn-sm pull-right"
+                [disabled]="movieEdit !== null"                
                 (click)="titleSearch=!titleSearch; searchTitle=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
                 (keyup.enter)="titleSearch=!titleSearch; searchTitle=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})">
                 <span class="glyphicon glyphicon-search"></span>
@@ -31,15 +33,17 @@
           <ng-container *ngIf="genreSearch">
            <input 
             class="form-control input-sm"
-             [(ngModel)]="searchGenre" 
-             placeholder="Search by Genre" 
-             (keyup.delete)="titleSearch=false" 
-             (keyup)="search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
+            [disabled]="movieEdit !== null" 
+            [(ngModel)]="searchGenre" 
+            placeholder="Search by Genre" 
+            (keyup.delete)="titleSearch=false" 
+            (keyup)="search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
            /> 
           </ng-container>
           <div class="input-group-btn">
           <button 
             class="form-control input-sm"
+            [disabled]="movieEdit !== null" 
             type="button" 
             class="btn btn-default btn-sm pull-right" 
             (click)="genreSearch=!genreSearch; searchGenre=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})" 
@@ -55,6 +59,7 @@
           <ng-container *ngIf="actorSearch">
            <input 
             class="form-control input-sm"
+            [disabled]="movieEdit !== null" 
             [(ngModel)]="searchActor" 
             placeholder="Search by Actor" 
             (keyup.delete)="titleSearch=false" 
@@ -64,6 +69,7 @@
           <div class="input-group-btn">
           <button
             class="form-control input-sm"
+            [disabled]="movieEdit !== null" 
             type="button" 
             class="btn btn-default btn-sm pull-right" 
             (click)="actorSearch=!actorSearch; searchActor=''; search({title:searchTitle, genre:searchGenre, actor:searchActor})" 

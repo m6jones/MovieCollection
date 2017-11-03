@@ -16,6 +16,7 @@
         placeholder="Title" 
         (keydown.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
         (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset()"
+        [disabled]="table.movieEdit !== movie && table.movieEdit !== null"
       />
       <span 
         class="glyphicon form-control-feedback" 
@@ -36,7 +37,8 @@
         placeholder="Genre"
         pattern="^[A-Za-z0-9\s\-_,\.;:()]+$" 
         (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
-        (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset()"/>
+        (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset()"
+        [disabled]="table.movieEdit !== movie && table.movieEdit !== null"/>
       <span 
         class="glyphicon form-control-feedback" 
         [class.glyphicon-remove]="genre.invalid && (genre.dirty || genre.touched)"
@@ -49,13 +51,14 @@
       [class.has-error]="actor.invalid && (actor.dirty || actor.touched)"
       [class.has-success]="actor.valid">
       <input 
-    class="form-control input-sm" 
-    required
-    #actor="ngModel"
-    [(ngModel)]="movie.actor" 
-    placeholder="Actor" 
-    (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
-    (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset(); "/>
+        class="form-control input-sm" 
+        required
+        #actor="ngModel"
+        [(ngModel)]="movie.actor" 
+        placeholder="Actor" 
+        (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
+        (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset(); "
+        [disabled]="table.movieEdit !== movie && table.movieEdit !== null"/>
       <span 
         class="glyphicon form-control-feedback" 
         [class.glyphicon-remove]="actor.invalid && (actor.dirty || actor.touched)"
@@ -66,7 +69,7 @@
   <button 
     type="button" 
     class="btn btn-default btn-sm" 
-    [disabled]="title.invalid  || genre.invalid || actor.invalid"
+    [disabled]="title.invalid  || genre.invalid || actor.invalid || (table.movieEdit !== movie && table.movieEdit !== null)"
     (click)="save(movie); title.reset(); genre.reset(); actor.reset()" 
     (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset()" 
     (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset();">
@@ -75,6 +78,7 @@
   <button 
     type="button" 
     class="btn btn-default btn-sm" 
+    [disabled]="table.movieEdit !== movie && table.movieEdit !== null"
     (click)="reset(); goBack(); title.reset(); genre.reset(); actor.reset();" 
     (keyup.enter)="save(movie); title.reset(); genre.reset(); actor.reset();" 
     (keyup.delete)="reset(); goBack(); title.reset(); genre.reset(); actor.reset();"

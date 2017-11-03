@@ -15,7 +15,7 @@ export class MovieRowEditComponent implements OnInit {
   @Input() add: boolean = false;
   @Input() table: MovieTableComponent;
   @ViewChild('defaultFocus') defaultFocus:ElementRef;
-  oldMovie: Movie;
+  oldMovie: Movie; // holds the orginal movie information so user can cancel changes.
   ngOnInit(): void {
     this.defaultFocus.nativeElement.focus();
     this.oldMovie = JSON.parse(JSON.stringify(this.movie));

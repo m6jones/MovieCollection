@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var movie_service_1 = require("./movie.service");
 var Observable_1 = require("rxjs/Observable");
 var Subject_1 = require("rxjs/Subject");
 // Observable class extensions
@@ -17,29 +16,31 @@ require("rxjs/add/observable/of");
 // Observable operators
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
-require("rxjs/add/operator/distinctUntilChanged");
-require("rxjs/add/operator/first");
-require("rxjs/add/observable/from");
 require("rxjs/add/observable/fromPromise");
+var movie_service_1 = require("./movie.service");
 var MovieTableComponent = (function () {
     function MovieTableComponent(movieService) {
         this.movieService = movieService;
+        this.movieEdit = null;
         this.searchTerms = new Subject_1.Subject();
         this.lastSearchTerm = { title: "", genre: "", actor: "" };
-        this.movieEdit = null;
     }
+    // Manage which movie has been selected on the screen.
     MovieTableComponent.prototype.onSelect = function (movie) {
         if (this.movieEdit === null) {
             this.selectedMovie = movie;
         }
     };
+    // Search for a movie
     MovieTableComponent.prototype.search = function (term) {
         this.searchTerms.next(term);
         this.lastSearchTerm = term;
     };
+    // Reload the movie list.
     MovieTableComponent.prototype.reload = function () {
         this.searchTerms.next(this.lastSearchTerm);
     };
+    // Set up the observable movie list that can be searched.
     MovieTableComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.movies = this.searchTerms
@@ -52,34 +53,36 @@ var MovieTableComponent = (function () {
             return Observable_1.Observable.of([]);
         });
     };
+    // Load movies after being initiated.
     MovieTableComponent.prototype.ngAfterViewInit = function () {
-        this.searchTerms.next(this.lastSearchTerm);
+        this.reload();
     };
+    // Get all movies as a promise.
     MovieTableComponent.prototype.getMovies = function () {
         return this.movieService.getMovies();
     };
+    // Add a new movie to the collection.
     MovieTableComponent.prototype.add = function (title, genre, actor) {
         var _this = this;
+        //Trim all the white space.
         title = title.trim();
         genre = genre.trim();
         actor = actor.trim();
-        if (!title) {
+        if (!title || !genre || !actor) {
             return;
         }
-        if (!genre) {
-            return;
-        }
-        if (!actor) {
-            return;
-        }
+        // send to api
         this.movieService.create(title, genre, actor)
             .then(function (movie) {
             _this.selectedMovie = null;
         });
-        this.searchTerms.next(this.lastSearchTerm);
+        // Reload the list after the movie has been added.
+        this.reload();
     };
+    // Delete a movie from the collection
     MovieTableComponent.prototype.delete = function (movie) {
         var _this = this;
+        // Send delete to the api.
         this.movieService
             .delete(movie.id)
             .then(function () {
@@ -87,7 +90,8 @@ var MovieTableComponent = (function () {
                 _this.selectedMovie = null;
             }
         });
-        this.searchTerms.next(this.lastSearchTerm);
+        // Reload list after the deletion has taken place.
+        this.reload();
     };
     return MovieTableComponent;
 }());
